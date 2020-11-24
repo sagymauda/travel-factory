@@ -1,6 +1,7 @@
 package com.example.travelfactory.controller;
 
 import com.example.travelfactory.Entity.Campaign;
+import com.example.travelfactory.dto.CampaignDto;
 import com.example.travelfactory.service.CampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,15 +13,19 @@ public class CampaignController {
     @Autowired
     private CampaignService campaignService;
 
+    @Autowired
+    CampaignDto campaignDto;
+
+
 
     @PostMapping(value = "/campaign")
-    public Campaign CreateCampaign(@RequestBody Campaign campaign){
-       return campaignService.save(campaign);
+    public CampaignDto CreateCampaign(@RequestBody CampaignDto campaignDto){
+       return campaignDto.convertCampaignToDto(campaignService.save( campaignDto.convertCampaignDtoToCampaign(campaignDto)));
     }
 
     @GetMapping(value ="/campaign/{campaignId}")
-    public Campaign getCampaign(@PathVariable(value = "campaignId", required = true) Long campaignId){
-        return campaignService.findById(campaignId);
+    public CampaignDto getCampaign(@PathVariable(value = "campaignId", required = true) Long campaignId){
+        return campaignDto.convertCampaignToDto(campaignService.findById(campaignId));
 
     }
 

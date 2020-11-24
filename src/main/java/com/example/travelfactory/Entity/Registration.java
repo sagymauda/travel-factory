@@ -15,7 +15,7 @@ public class Registration {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "name")
+    @Column(name = "name", unique = true )
     private String name;
     @Column(name = "first_name")
     private String firstName;
